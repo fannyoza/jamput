@@ -94,7 +94,7 @@ pub async fn mine(args: MineArgs, url: String , username: String)  {
         let version = env!("CARGO_PKG_VERSION");
         let auth = BASE64_STANDARD.encode(format!("{}/{}", username,version));
 
-        println!("Connecting to server...");
+        println!("menghubungkan.");
         let request = Request::builder()
             .method("GET")
             .uri(url.to_string())
@@ -109,7 +109,7 @@ pub async fn mine(args: MineArgs, url: String , username: String)  {
 
         match connect_async(request).await {
             Ok((ws_stream, _)) => {
-                println!("Connected to network!");
+                println!("cocol!");
 
                 let (mut sender, mut receiver) = ws_stream.split();
                 let (message_sender, mut message_receiver) = tokio::sync::mpsc::unbounded_channel::<ServerMessage>();
@@ -133,9 +133,9 @@ pub async fn mine(args: MineArgs, url: String , username: String)  {
                 while let Some(msg) = message_receiver.recv().await {
                     match msg {
                         ServerMessage::StartMining(challenge, nonce_range, cutoff) => {
-                            println!("Received start mining message!");
-                            println!("Mining starting...");
-                            println!("Nonce range: {} - {}", nonce_range.start, nonce_range.end);
+                            println!("menerima");
+                            println!("gaskan.");
+                            println!("embuh iki opo: {} - {}", nonce_range.start, nonce_range.end);
                             let hash_timer = Instant::now();
                             let nonces_per_thread = 10_000;
 
@@ -228,9 +228,9 @@ pub async fn mine(args: MineArgs, url: String , username: String)  {
 
                             let hash_time = hash_timer.elapsed();
 
-                            println!("Found best diff: {}", best_difficulty);
-                            println!("Processed: {}", total);
-                            println!("Hash time: {:?}", hash_time);
+                            println!("paling baik: {}", best_difficulty);
+                            println!("anu: {}", total);
+                            println!("waktunya: {:?}", hash_time);
 
 
                             let message_type =  2u8; // 1 u8 - BestSolution Message
